@@ -131,19 +131,24 @@ class OrderController extends Controller
 
     public function confirmOrder(Request $request)
     {
-        if (empty(session('order_id'))) {
-            //  dd($or->list[0]->product);
-            $order = new Order();
-            $order->user_id = User::checkUser($request);
-            $order->status_id = 2;
-            $order->booking = \Carbon\Carbon::now()->format('Y-m-d H:i');
-            $order->total_amount = session('totalPrice');
-            $order->save();
-            $order_id = $order->id;
-        }else{
-            $order = Order::find(session('order_id'));
-            $order_id = $order->id;
-        }
+        // dd();
+        foreach(session('cart') as $item){
+            if (empty($item['order_id'])) {
+                //  dd($or->list[0]->product);
+                $order = new Order();
+                $order->user_id = User::checkUser($request);
+                $order->status_id = 2;
+                $order->booking = \Carbon\Carbon::now()->format('Y-m-d H:i');
+                $order->total_amount = session('totalPrice');
+                $order->save();
+                $order_id = $order->id;
+            }else{
+                $order = Order::find($item['order_id']);
+                $order_id = $order->id;
+                $order->update(['status_id' => 2]);
+            };
+        };
+
 
         // dd($or->list[0]->product);
         // $order = new Order();
@@ -164,17 +169,17 @@ class OrderController extends Controller
                 $item->save();
                 $totalSum+=$product['qty']*$product['price'];
             };
-
         };
         // dd($order->statuses());
         // $order->statuses()->save(2);
-        $order->update(['status_id' => 2]);
+
+        // $order->update(['status_id' => 2]);
         $order->increment('total_amount', $totalSum);
         // event(new \App\Events\ChangeOrderEvent($order));
         \Cart::clear();
-        if (empty(session('order_id'))) {
-            Session::forget('order_id');
-        };
+        // if (empty(session('order_id'))) {
+        //     Session::forget('order_id');
+        // };
 
         // session('order_id')->forget();
         // return view('mail.order-admin', compact('order'));

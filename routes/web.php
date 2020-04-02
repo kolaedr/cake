@@ -63,14 +63,15 @@ Route::group(
         Route::post('/profile-update/{id}', 'UserController@updateInfo')->name('profile-update');
         Route::get('/orders', 'UserController@userOrders')->name('orders');
         Route::get('/change-settings', 'UserController@userChangeSettings')->name('change-settings');
-        Route::get('/checkout', 'Admin\OrderController@checkout')->name('checkout');
 
 });
+Route::get('/cart', 'CartController@index');
 Route::post('/cart/add', 'CartController@add');
 Route::post('/cart/addCustom', 'CartController@addCustom');
 Route::post('/cart/clear', 'CartController@clear');
 Route::post('/cart/remove', 'CartController@remove');
 Route::post('/cart/change', 'CartController@change');
+Route::get('/checkout', 'Admin\OrderController@checkout')->name('checkout');
 
 
 Route::post('/checkout', 'Admin\OrderController@confirmOrder');

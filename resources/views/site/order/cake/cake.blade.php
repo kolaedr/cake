@@ -94,20 +94,19 @@
                     </div>
 
                 </div>
-                <div class="col-12">
+                {{-- <div class="col-12">
                     <div class="form-item">
                         <label for="name">{{__('user_name')}}</label>
                         <input type="text" name="name" id="name" class="@error('name') error-alert  @enderror" placeholder="Put user name" value="{{Auth::user()->name??''}}">
-                        {{-- @error('name')
+                        @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
-                        @enderror --}}
-                </div>
+                        @enderror
+                    </div>
                     <div class="form-item">
                         <label for="phone">{{__('user_phone')}}</label>
                         <input type="text" name="phone" id="phone" class="user-phone  @error('phone') error-alert  @enderror" placeholder="{{__('Your phone')}}"  value="{{Auth::user()->phone??''}}" required>
-                        {{-- <input type="text" name="phone" id="phone" class="user-phone  @error('phone') error-alert  @enderror" placeholder="{{__('Your phone')}}"  data-inputmask="'mask': '+38 (999) 99-99-999', 'removeMaskOnSubmit': true" value="{{Auth::user()->phone??''}}"> --}}
                         @error('phone')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -116,8 +115,8 @@
 
                     </div>
 
-                </div>
-                <div class="col-12 row">
+                </div> --}}
+                {{-- <div class="col-12 row">
                     <div class=" col-12" >
                         <p>{{__('delivery')}}</p>
 
@@ -146,7 +145,7 @@
                     </div>
 
 
-                </div>
+                </div> --}}
                 <button type="submit" class="btn btn-primary add-cake-to-cart">{{__('button_add_cake_to_cart')}}</button>
             </div>
             {{-- <div class="col-4"></div> --}}

@@ -54,4 +54,9 @@ class CartController extends Controller
 
         return view('site.cart.cart');
     }
+
+    public function index()
+    {
+        return view('site.cart.checkout');
+    }
 }

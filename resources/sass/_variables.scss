@@ -2,9 +2,13 @@
 $body-bg: #f8fafc;
 
 // Typography
+$font-family-headers: 'Philosopher', sans-serif;
+// $font-family-sans-serif: 'El Messiri', sans-serif;
 $font-family-sans-serif: 'Nunito', sans-serif;
+// $font-family-sans-serif: 'Alegreya Sans', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+// $base-color: #121212;
 
 // Colors
 $blue: #3490dc;
@@ -17,3 +21,24 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+/* Color Theme Swatches in Hex */
+// $cake-2-1-hex: #F2F1EC;
+// $cake-2-2-hex: #FAB7BE;
+// $cake-2-3-hex: #EF868D;
+// $cake-2-4-hex: #6E5C50;
+// $cake-2-5-hex: #B59D8F;
+
+/* Color Theme Swatches in RGBA */
+$back-color: rgba(242,240,235, 1);
+$pink-light-color: rgba(249,182,189, 1);
+$pink-color: rgba(239,133,140, 1);
+$text-color: rgba(110,91,80, 1);
+$border-color: rgba(181,156,142, 1);
+
+/* Color Theme Swatches in HSLA */
+// $cake-2-1-hsla: hsla(49, 18, 93, 1);
+// $cake-2-2-hsla: hsla(353, 87, 84, 1);
+// $cake-2-3-hsla: hsla(356, 76, 73, 1);
+// $cake-2-4-hsla: hsla(23, 15, 37, 1);
+// $cake-2-5-hsla: hsla(22, 20, 63, 1);

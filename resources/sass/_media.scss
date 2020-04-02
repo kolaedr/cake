@@ -1,0 +1,22 @@
+$layout-breakpoint-small: 960px;
+
+// @media (min-width: $layout-breakpoint-small) {
+//   .row {
+//     display: block;
+//   }
+// }
+
+// @media screen and (orientation: landscape) {
+//     .row {
+//     display: block;
+//    } 
+//   }
+
+  @media screen and (max-width: 500px){
+    .row {
+    display: block;
+   } 
+   .col-4{
+       width: 100%;
+   }
+  }

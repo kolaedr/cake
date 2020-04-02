@@ -18,10 +18,10 @@ class CreateMoreAdditionalFillersCakesTable extends Migration
             $table
                 ->unsignedBigInteger('additional_filler_id');
                 $table->foreign('additional_filler_id')
-                    ->references('id')->on('more_additional_fillers_cakes')
+                    ->references('id')->on('additional_fillers')
                     ->onDelete('cascade');
             $table
-                ->unsignedBigInteger('cake_id')->nulleble();
+                ->unsignedBigInteger('cake_id')->nullable();
                 $table->foreign('cake_id')
                     ->references('id')->on('cakes')
                     ->onDelete('cascade');

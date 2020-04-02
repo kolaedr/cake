@@ -22,5 +22,8 @@ class MoreDecoration extends Model
         return $this->belongsToMany('App\AdditionalDecoration', 'more_decor_for_cakes', 'cake_id', 'additional_decorations_id');
     }
 
-    
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = $value ==='on' ? true : false;
+    }
 }

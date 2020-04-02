@@ -1,0 +1,27 @@
+<?php
+
+return array (
+  'confirm_password_message' => '',
+  'email' => 'Почта',
+  'full_name' => 'Полное имя',
+  'i_already_have_a_membership' => 'Я уже зарегистрирован',
+  'i_forgot_my_password' => 'Восстановление пароля',
+  'log_out' => 'Выход',
+  'login_message' => 'Вход в систему',
+  'password' => 'Пароль',
+  'password_reset_message' => 'Восстановление пароля',
+  'register' => 'Регистрация',
+  'register_a_new_membership' => 'Регистрация нового пользователя',
+  'register_message' => 'Регистрация нового пользователя',
+  'remember_me' => 'Запомнить меня',
+  'reset_password' => 'Восстановление пароля',
+  'retype_password' => 'Подтверждение пароля',
+  'send_password_reset_link' => 'Отправить ссылку для восстановления пароля',
+  'sign_in' => 'Вход',
+  'toggle_navigation' => 'Переключить навигацию',
+  'verify_check_your_email' => '',
+  'verify_email_sent' => '',
+  'verify_if_not_recieved' => '',
+  'verify_message' => '',
+  'verify_request_another' => '',
+);

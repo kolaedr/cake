@@ -35,4 +35,9 @@ class AdditionalDecoration extends Model
     {
         $this->attributes['slug'] = $value ? \Str::slug($value, '-'): \Str::slug($this->attributes['slug'], '-');
     }
+
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = $value ==='on' ? true : false;
+    }
 }

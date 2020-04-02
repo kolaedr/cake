@@ -15,11 +15,16 @@ class CreateDeliveryForUsersTable extends Migration
     {
         Schema::create('delivery_for_users', function (Blueprint $table) {
             $table->id();
-            $table->string('street', 100);
-            $table->integer('build');
-            $table->char('build_index')->nullable()->default('');
-            $table->integer('room');
-            $table->string('comments', 200);
+            $table
+                ->unsignedBigInteger('user_id');
+                $table->foreign('user_id')
+                    ->references('id')->on('users')
+                    ->onDelete('cascade');
+            $table
+                ->unsignedBigInteger('delivery_id');
+                $table->foreign('delivery_id')
+                    ->references('id')->on('deliveries')
+                    ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone',  'instagram', 'viber', 'telegram', 'facebook', 'provider', 'provider_id'
     ];
 
     /**
@@ -47,8 +47,35 @@ class User extends Authenticatable
     //     return $this->belongsToMany('App\Order', 'order_cakes', 'user_id', 'order_id');
     // }
 
+    public function deliveries()
+    {
+        return $this->belongsToMany('App\Delivery', 'delivery_for_users', 'user_id', 'delivery_id');
+    }
+
     public function cakes()
     {
-        return $this->belongsToMany('App\Cake', 'order_cakes', 'user_id', 'cake_id');
+        return $this->belongsTo('App\Cake', 'cake_filling_tier_1_id', 'id');
+    }
+
+
+    static function checkUser($request)
+    {
+        if (!\Auth::check()) {
+            if (!User::where('phone', '=', $request->phone)->first()) {
+                $request->request->add(['password' => bcrypt($request->phone)]);
+                $user = User::create($request->all());
+                if($request->delivery != 'pickup'){
+                    $delivery = Delivery::create($request->all());
+                    $request->request->add(['delivery_id' => $delivery->id]);
+                    $user->deliveries()->sync($delivery->id);
+                }
+                auth()->attempt(array('phone' => $request->phone, 'password' => $request->phone));
+                return $user->id;
+            }else{
+                return User::where('phone', '=', $request->phone)->first()->id;
+            };
+        }else{
+            return \Auth::user()->id;
+        };
     }
 }

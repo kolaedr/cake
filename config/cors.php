@@ -30,5 +30,6 @@ return [
     'max_age' => false,
 
     'supports_credentials' => false,
+    // $app->configure('cors'),
 
 ];

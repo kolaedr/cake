@@ -13,4 +13,9 @@ class Status extends Model
     {
         return $this->hasMany('App\Cake', 'status_id');
     }
+
+    public function setSlugAttribute($value)
+    {
+        $this->attributes['slug'] = $value ? \Str::slug($value, '-'): \Str::slug($this->attributes['slug'], '-');
+    }
 }

@@ -21,6 +21,11 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
+        'phone' => $faker->unique()->tollFreePhoneNumber,
+        'viber' => $faker->unique()->tollFreePhoneNumber,
+        'telegram' => $faker->unique()->tollFreePhoneNumber,
+        'instagram' => $faker->unique()->tollFreePhoneNumber,
+        'facebook' => '@'.$faker->name,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'role' => $faker->name,

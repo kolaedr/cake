@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'facebook' => [
+        'client_id' => '3242723459088894',
+        'client_secret' => '63a28fd6195b767bd002c92b15b51659',
+        'redirect' => '/laravel-example/callback/facebook',
+      ],
+
 ];

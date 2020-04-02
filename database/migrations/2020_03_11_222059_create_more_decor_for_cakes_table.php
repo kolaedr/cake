@@ -21,7 +21,7 @@ class CreateMoreDecorForCakesTable extends Migration
                     ->references('id')->on('additional_decorations')
                     ->onDelete('cascade');
             $table
-                ->unsignedBigInteger('cake_id')->nulleble();
+                ->unsignedBigInteger('cake_id')->nullable();
                 $table->foreign('cake_id')
                     ->references('id')->on('cakes')
                     ->onDelete('cascade');

@@ -8,17 +8,17 @@ class OrderCake extends Model
 {
     protected $table = 'order_cakes';
     protected $fillable = [
-        'user_id', 'cake_id', 'count',
+        'order_id', 'cake_id', 'count',
     ];
 
 
-    public function users()
+    public function orders()
     {
-        return $this->belongsToMany('App\User', 'order_cakes', 'cake_id', 'user_id');
+        return $this->belongsToMany('App\Order', 'order_cakes', 'cake_id', 'order_id');
     }
 
     public function cakes()
     {
-        return $this->belongsToMany('App\Cake', 'order_cakes', 'user_id', 'cake_id');
+        return $this->belongsToMany('App\Cake', 'order_cakes', 'order_id', 'cake_id');
     }
 }

@@ -31,4 +31,9 @@ class CakeTopDecoration extends Model
     {
         $this->attributes['slug'] = $value ? \Str::slug($value, '-'): \Str::slug($this->attributes['slug'], '-');
     }
+
+    public function setDeliveryAttribute($value)
+    {
+        $this->attributes['delivery'] = $value ==='on' ? true : false;
+    }
 }

@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class MoreAdditionalFillersCake extends Model
 {
     protected $table = 'more_additional_fillers_cakes';
+    protected $fillable = [
+        'additional_filler_id',
+        'cake_id',
+    ];
 
     public function cakes()
     {
@@ -16,6 +20,11 @@ class MoreAdditionalFillersCake extends Model
     public function AdditionalFiller()
     {
         return $this->belongsToMany('App\AdditionalFiller', 'more_additional_fillers_cakes', 'cake_id', 'additional_filler_id');
+    }
+
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = $value ==='on' ? true : false;
     }
 
 }

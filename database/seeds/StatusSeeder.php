@@ -11,6 +11,17 @@ class StatusSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Status::class, 5)->create();
+        // factory(App\Status::class, 5)->create();
+
+        $status = [
+                'New','Pending','Confirm','In WORK','Delivery','Done',
+        ];
+
+        foreach($status as $item){
+            DB::table('statuses')->insert([
+                'name' => $item,
+            ]);
+        };
+
     }
 }

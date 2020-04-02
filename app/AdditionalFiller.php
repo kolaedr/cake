@@ -15,7 +15,7 @@ class AdditionalFiller extends Model
         'describe',
         'visible',
     ];
-    
+
     public function cakes()
     {
         return $this->belongsToMany('App\Cake', 'more_additional_fillers_cakes', 'additional_filler_id', 'cake_id');
@@ -30,4 +30,11 @@ class AdditionalFiller extends Model
     {
         $this->attributes['slug'] = $value ? \Str::slug($value, '-'): \Str::slug($this->attributes['slug'], '-');
     }
+
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = $value ==='on' ? true : false;
+    }
+
+
 }

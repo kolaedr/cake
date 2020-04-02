@@ -15,8 +15,8 @@ class CreateImagesTable extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->string('url', 200);
-            $table->string('alt', 100);
+            $table->string('url', 500)->default('');
+            $table->string('alt', 500)->default('');
         });
     }
 

@@ -15,13 +15,13 @@ class CakeSideDecoration extends Model
         'describe',
         'visible',
     ];
-    
+
 
     public function cakes()
     {
         return $this->hasMany('App\Cake');
     }
-    
+
 
     public function setImageAttribute($value)
     {
@@ -31,5 +31,10 @@ class CakeSideDecoration extends Model
     public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = $value ? \Str::slug($value, '-'): \Str::slug($this->attributes['slug'], '-');
+    }
+
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = $value ==='on' ? true : false;
     }
 }

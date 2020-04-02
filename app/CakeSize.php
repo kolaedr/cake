@@ -8,7 +8,7 @@ class CakeSize extends Model
 {
     protected $table = 'cake_sizes';
     protected $fillable = [
-        'lavel',
+        'tier',
         'weight_min',
         'weight_max',
         'piece_min',
@@ -20,5 +20,10 @@ class CakeSize extends Model
     public function cakes()
     {
         return $this->hasMany('App\Cake');
+    }
+
+    public function setVisibleAttribute($value)
+    {
+        $this->attributes['visible'] = $value ==='on' ? true : false;
     }
 }

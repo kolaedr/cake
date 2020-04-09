@@ -19,7 +19,7 @@ class CreateCakesTable extends Migration
             $table->string('text_decoration', 200)->nullable()->default(0);
             $table->string('comments', 200)->nullable()->default(0);
             $table
-                ->unsignedBigInteger('order_id');
+                ->unsignedBigInteger('order_id')->nullable();
                 $table->foreign('order_id')
                     ->references('id')->on('orders')
                     ->onDelete('cascade');

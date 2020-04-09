@@ -21,6 +21,10 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->text('describe')->nullable();
             $table->boolean('visible')->default(true);
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')
+                ->references('id')->on('categories')
+                ->onDelete('SET NULL');
             $table->timestamps();
         });
     }

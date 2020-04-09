@@ -16,12 +16,13 @@ class Cart{
                 'price' => $p->price,
                 'image' => $p->image,
                 'qty' => 1,
+                'type' => null,
             ]);
         };
         $this->totalPrice();
     }
 
-    public function addCustom($p, $orderId)
+    public function addCustom($p, $type, $booking)
     {
         if (Session::get('cart.product_'.$p->id)) {
             $old = Session::get('cart.product_'.$p->id)['qty'];
@@ -33,7 +34,8 @@ class Cart{
                 'price' => $p->price,
                 'image' => $p->tierOne->image,
                 'qty' => 1,
-                'order_id' => $orderId,
+                'type' => $type,
+                'booking' => $booking,
             ]);
         };
         $this->totalPrice();
@@ -54,6 +56,8 @@ class Cart{
     public function clear()
     {
         Session::forget('cart');
+        Session::forget('booking');
+        // session('booking').forget();
     }
 
     public function totalPrice()
@@ -64,4 +68,6 @@ class Cart{
         };
         Session::put('totalPrice', $sum);
     }
+
+
 }

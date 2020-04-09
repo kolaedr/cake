@@ -21,7 +21,7 @@ class UserController extends Controller
         // $orders = Order::where('user_id', \Auth::user()->id)->first();
         $orders = Order::where([
             ['user_id', '=', \Auth::user()->id],
-            ['status_id', '<>', '1'],
+            // ['status_id', '<>', '1'],
             ])->get();
         // dd($orders->cakes[0]->tierOne);
         return view('site.user.orders', compact('orders'));

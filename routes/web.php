@@ -36,6 +36,7 @@ Route::group(
         Route::resource('/cake-additional-decorations', 'AdditionalDecorationController');
         Route::resource('/cake-additional-fillings', 'AdditionalFillerController');
         Route::resource('/orders', 'OrderController');
+        Route::resource('/order-default-settings', 'DefaultSettingController');
         Route::resource('/cakes', 'CakeController');
         Route::resource('/statuses', 'StatusController');
         Route::resource('/products', 'ProductController');
@@ -65,12 +66,12 @@ Route::group(
         Route::get('/change-settings', 'UserController@userChangeSettings')->name('change-settings');
 
 });
-Route::get('/cart', 'CartController@index');
-Route::post('/cart/add', 'CartController@add');
-Route::post('/cart/addCustom', 'CartController@addCustom');
-Route::post('/cart/clear', 'CartController@clear');
-Route::post('/cart/remove', 'CartController@remove');
-Route::post('/cart/change', 'CartController@change');
+Route::get('/cart', 'Admin\CartController@index');
+Route::post('/cart/add', 'Admin\CartController@add');
+Route::post('/cart/addCustom', 'Admin\CartController@addCustom');
+Route::post('/cart/clear', 'Admin\CartController@clear');
+Route::post('/cart/remove', 'Admin\CartController@remove');
+Route::post('/cart/change', 'Admin\CartController@change');
 Route::get('/checkout', 'Admin\OrderController@checkout')->name('checkout');
 
 

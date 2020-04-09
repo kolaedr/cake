@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,7 +29,8 @@ class ProductController extends Controller
     public function create()
     {
         $Products = new Product();
-        return view('admin.product.create', compact('Products'));
+        $categoryList = Category::all('id', 'name')->pluck('name', 'id');
+        return view('admin.product.create', compact('Products', 'categoryList'));
     }
 
     /**
@@ -49,7 +51,7 @@ class ProductController extends Controller
         ]);
         $Products = Product::create($request->all());
 
-        return redirect('admin\products')->with('success', 'News with id: ' . $request->name . ' added!');
+        return redirect('admin\products')->with('success', 'Product with id: ' . $request->name . ' added!');
     }
 
     /**
@@ -73,7 +75,8 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         $Products = Product::find($product->id);
-        return view('admin.product.edit', compact('Products'));
+        $categoryList = Category::all('id', 'name')->pluck('name', 'id');
+        return view('admin.product.edit', compact('Products', 'categoryList'));
     }
 
     /**

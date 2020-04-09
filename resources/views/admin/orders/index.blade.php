@@ -69,7 +69,15 @@
                 {{$item->total_amount}}
 
             </td>
-            <td>{{$item->statuses->name}}</td>
+            <td>
+                {!! Form::model(
+                    $item,
+                    ['route'=>['orders.update', $item->id], 'method'=>'put', 'class'=>'', 'name'=>'statuschange']) !!}
+                    {!! Form::select('status_id', $statuses, $item->status_id, ['class'=>'form-control status_id']) !!}
+                {{-- {{$item->statuses->name}} --}}
+                {{-- {!! Form::submit('Change', ['class'=>'btn btn-secondary btn-block']) !!} --}}
+                {!! Form::close() !!}
+            </td>
             <td class="d-inline-flex">
                 <a href="{{route('orders.edit', $item->id)}}" class="text-secondary mr-3" title="Edit"><i class="fas fa-edit nav-icon"></i></a>
                 {{-- <a href="#" class="text-danger m-1 delete" title="Delete" data-id='{{$item->id}}'><i class="fas fa-trash-alt nav-icon"></i></a> --}}
@@ -107,5 +115,16 @@
                         document.querySelector('.alert-success').remove();
                     }, 4000);
                 }
+        // const axios = require('axios').default;
+
+        let statuses = document.querySelectorAll('.status_id');
+        for (const iterator of statuses) {
+            iterator.addEventListener('change', (e)=>{
+                if (confirm('Change status?')) {
+                    e.target.parentNode.submit();
+                }
+        })
+        }
+
         </script>
 @stop

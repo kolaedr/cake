@@ -20,3 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('cake-filling', 'API\CakeFillingAPIController');
+
+
+// Route::get('/free-day', 'Admin\BookingController@getFreeDay');
+Route::get('/booking-calendar', 'Admin\BookingController@getBookingList');
+// Route::get('/get-count', 'Admin\CartController@getCount');

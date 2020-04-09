@@ -44,7 +44,7 @@ class CakeFillingController extends Controller
             'name' => 'required|max:100|min:3|unique:cake_fillings,name',
             'slug' => 'max:100|min:3|unique:cake_fillings,slug',
             'price' => 'required|max:100|min:1',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => '',
             'describe' => 'required|max:2000|min:10',
             'visible' => '',
         ]);
@@ -91,7 +91,7 @@ class CakeFillingController extends Controller
             'name' => 'required|max:100|min:3|unique:cake_fillings,name,'.$id,
             'slug' => 'sometimes|max:100|min:3|unique:cake_fillings,slug,'.$id,
             'price' => 'required|max:100|min:1',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => '',
             'describe' => 'required|max:1000|min:10',
             'visible' => '',
         ]);
@@ -113,3 +113,4 @@ class CakeFillingController extends Controller
         return redirect('admin/cake-fillings')->with('success', 'Category with id: ' . $id . ' DELETED!');
     }
 }
+

@@ -15,12 +15,18 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
                 'name' => 'admin',
                 'email' => 'admin@admin.com',
-                'phone' => '3800507507763',
+                'phone' => '0507507763',
                 'password' => bcrypt('admin'),
                 'role' => 'admin',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]);
+        DB::table('default_settings')->insert([
+            'default_count' => 10,
+            'cake_count' => 7,
+            'cheesecake_count' => 5,
+            'cupcake_count' => 40,
+        ]);
         $this->call(AdditionalDecorationSeeder::class);
         $this->call(AdditionalFillerSeeder::class);
         $this->call(CakeFillingSeeder::class);

@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\CartServiceProvider::class,
+        App\Providers\BookingServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
@@ -230,6 +231,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         // 'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'Cart' => App\Facades\Cart::class,
+        'Booking' => App\Facades\Booking::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 

@@ -87,6 +87,14 @@
                     {!! Form::submit('Save', ['class'=>'btn btn-primary btn-block']) !!}
                 </td>
             </tr>
+            <tr>
+                <td>
+                    {{__("user_cooment_for_order")}}
+                </td>
+                <td colspan="4">
+                    {!! Form::text('comments', null, ['class'=>'form-control', 'placeholder'=>'Add our comment (only admin)', 'readonly']) !!}
+                </td>
+            </tr>
         </tbody>
     </table>
     {!! Form::close() !!}
@@ -107,13 +115,10 @@
     <div class="card-deck">
         @foreach ($Orders->cakes as $item)
             <div class="card"  style="max-width: 20rem;">
-
-
               <div class="card-header">{{$item->tierOne->name}}
                 <small class="text-muted">(price: {{$item->price}} UAH)</small><br>
                 </div>
               <div class="card-body">
-                {{-- <h5 class="card-title">Card title</h5> --}}
                 <small class="text-muted">Filling</small><br>
                 <p class="card-text">{{$item->tierOne->name}}</p>
                 <small class="text-muted">Top decoration</small><br>
@@ -149,52 +154,37 @@
                 </form>
               </div>
             </div>
-
-        {{-- <div class="card col-3">
-            <div class="card-header">
-              <h3 class="card-title">
-                Cake : <strong>{{$item->tierOne->name}}</strong>
-              </h3>
-              <form action="/admin/cakes/{{$item->id}}" method="POST">
-                @csrf
-                @method('DELETE')
-                <a href="#" class="text-danger m-1 delete" title="Delete" onclick="this.closest('form').submit();return false;"><i class="fas fa-trash-alt nav-icon"></i></a>
-            </form>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <dl>
-                <dt>Filling</dt>
-                <dd>{{$item->tierOne->name}}</dd>
-                <dt>Top decoration</dt>
-                <dd>{{$item->CakeTopDecorations->name}}</dd>
-                <dt>Side decoration</dt>
-                <dd>{{$item->CakeSideDecorations->name}}</dd>
-                <dt>Additional Decorations</dt>
-                @foreach ($item->AdditionalDecorations as $it)
-                    <dd>{{$it->name}}</dd>
-                @endforeach
-                <dt>Additional Fillers</dt>
-                @foreach ($item->AdditionalFillers as $it)
-                    <dd>{{$it->name}}</dd>
-                @endforeach
-
-                <dt>Price</dt>
-                <dd>{{$item->price}} UAH</dd>
-
-                <dt>Text decoration</dt>
-                <dd>{!! $item->text_decoration !!}</dd>
-                <dt>Comments</dt>
-                <dd>{!! $item->comments !!}</dd>
-                <dd><img src="{{$item->image}}" alt="" style="width: 10em"></dd>
-                <dt>Visible for users</dt>
-                <dd>{!! $item->visible == 1 ? "Visible": "Not visible to site" !!}</dd>
-              </dl>
-            </div>
-            <!-- /.card-body -->
-          </div>--}}
         @endforeach
 
+        @if ($Orders->products)
+            @foreach ($Orders->products as $item)
+                <div class="card"  style="max-width: 20rem;">
+                <div class="card-header">{{$item->name}}
+                    <small class="text-muted">(price: {{$item->price}} UAH)</small><br>
+                    </div>
+                <div class="card-body">
+                    <small class="text-muted">{{__("count_product")}}:</small><br>
+                    <p class="card-text">{!! $item->pivot->qty !!}</p>
+                    <small class="text-muted">{{__("total_cost_product")}}:</small><br>
+                    <p class="card-text">{!! $item->pivot->qty*$item->pivot->price !!}</p>
+                    <small class="text-muted">Comment:</small><br>
+                        <p class="card-text">{!! $item->comments !!}</p>
+                    @if ($item->image!='')
+                    <small class="text-muted">My desing:</small><br>
+                     <img src="{{$item->image}}" class="card-img-top" alt="..." style="widght: 4em;">
+                    @endif
+
+                </div>
+                <div class="card-footer">
+                    <form action="/admin/cakes/{{$item->id}}" method="POST" class="">
+                        @csrf
+                        @method('DELETE')
+                        <a href="#" class=" text-danger m-1 delete" title="Delete" onclick="this.closest('form').submit();return false;"><i class="fas fa-trash-alt nav-icon mr-2"></i>Delete this position</a>
+                    </form>
+                </div>
+                </div>
+            @endforeach
+        @endif
     </div>
 @endsection
 

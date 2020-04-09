@@ -16,6 +16,7 @@ class Request
     public function handle($request, Closure $next)
     {
         // $request->request->add(['phone' => preg_replace('/[\\s+\(\)-]/', '', $request->phone)]);
+        // $request->request->add(['street' => preg_replace('/[\\s+\(\)-]/', '', $request->phone)]);
         return $next($request);
     }
 }

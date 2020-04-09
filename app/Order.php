@@ -50,7 +50,7 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Product', 'order_lists', 'order_id', 'product_id');
+        return $this->belongsToMany('App\Product', 'order_lists', 'order_id', 'product_id')->withPivot('qty', 'price');
     }
 
     public function setVisibleAttribute($value)

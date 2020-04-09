@@ -48,7 +48,7 @@
         document.getElementById('button-image').addEventListener('click', (event) => {
             event.preventDefault();
 
-            window.open('/file-manager/fm-button', 'fm', 'width=900,height=600');
+            window.open('/file-manager/fm-button', 'fm', 'width=900,height=800');
             });
         });
 

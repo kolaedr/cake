@@ -10,11 +10,11 @@ class OrderList extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order', 'order_lists', 'product_id', 'order_id');
+        return $this->belongsToMany('App\Order', 'order_lists', 'product_id', 'order_id')->withPivot('qty', 'price');
     }
 
     public function products()
     {
-        return $this->belongsToMany('App\Product', 'order_lists', 'order_id', 'product_id');
+        return $this->belongsToMany('App\Product', 'order_lists', 'order_id', 'product_id')->withPivot('qty', 'price');
     }
 }

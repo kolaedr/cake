@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import DayPicker from "react-day-picker";
+// import DayPicker from "react-day-picker";
+import * as moment from 'moment';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import ReactDOM from 'react-dom';
 import "react-day-picker/lib/style.css";
@@ -42,15 +43,21 @@ const FIRST_DAY_OF_WEEK = {
 };
 const locale = 'ru';
 
-const birthdayStyle = `.DayPicker-Day--highlighted {
+const birthdayStyle = `.DayPicker-Day--disabled {
     background-color: orange;
     color: white;
   }`;
 
+//   Moment.globalMoment = moment;
+
+
 
 const Datapicker = () => {
-    const dd = new Date();
+    const dd = moment().format('YYYY-MM-DD');
     const [days, setDay] = useState(dd);
+
+    // let mome = moment().format('YYYY-MM-DD');
+    console.log('object :', moment('2020-4-23').format('YYYY-MM-DD'));
 
     // console.log(day.toLocaleDateString())
     const handleDayClick = (day, { selected }) => {
@@ -67,19 +74,26 @@ const Datapicker = () => {
         initialMonth={new Date()}
         fromMonth={new Date()}
         onDayClick={handleDayClick}
-        selectedDays={days}
-        disabledDays={[
-            new Date(2020, 3, 23),
-            new Date(2020, 3, 25),
-            {
-            after: new Date(2020, 3, 27),
-            before: new Date(2020, 3, 29),
-            },
-        ]}
+        // selectedDays={days}
+        // disabledDays={[
+        //     moment('2020-3-23').format('YYYY-MM-DD'),
+        //     moment('2020-3-25').format('YYYY-MM-DD'),
+        //     // new Date(2020, 3, 23),
+        //     // new Date(2020, 3, 25),
+        //     // {
+        //     // after: new Date(2020, 3, 27),
+        //     // before: new Date(2020, 3, 29),
+        //     // },
+        // ]}
+        dayPickerProps={{
+            selectedDays: {days},
+            disabledDays: {
+              daysOfWeek: [1, 3],
+
+                },
+          }}
          />
-
-        <input name="booking" type="hidden" value={`${Date.parse(days).toISOString()}`} id="booking" />
-
+        <input name="booking" type="hidden" value={days} id="booking" />
     </div>
     );
 
@@ -87,7 +101,7 @@ const Datapicker = () => {
 
 // const handleDayClick = (day, { selected }) =>{
 //     selected ? undefined : setDay(day);
-// }
+// }<input name="booking" type="hidden" value={`${Date.parse(days).toISOString()}`} id="booking" />
 
 export default Datapicker;
 

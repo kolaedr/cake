@@ -19,7 +19,7 @@ class CreateDeliveriesTable extends Migration
             $table->integer('build');
             $table->string('build_index', 1)->nullable();
             $table->integer('room');
-            $table->string('comments', 200);
+            $table->string('comments', 200)->nullable();
             $table->timestamps();
         });
     }

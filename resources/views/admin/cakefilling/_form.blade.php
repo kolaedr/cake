@@ -30,7 +30,7 @@
 @if ($CakeFillings->image)
    <div class="form-group">
         <label for="">Image</label>
-        <img src="{{$CakeFillings->image}}" alt="" class="thumbnail admin-edit-image" style="width:50em">
+        <img src="{{$CakeFillings->image}}" alt="" class="thumbnail admin-edit-image" style="width:10em">
         <a href="#" class="remove-img"> Remove</a>
         <input type="hidden" name="removeImg">
         @error('image')

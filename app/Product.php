@@ -15,7 +15,7 @@ class Product extends Model
 
     public function orders()
     {
-        return $this->belongsToMany('App\Order', 'order_lists', 'product_id', 'order_id');
+        return $this->belongsToMany('App\Order', 'order_lists', 'product_id', 'order_id')->withPivot('qty', 'price');
     }
 
     public function setFavoriteAttribute($value)

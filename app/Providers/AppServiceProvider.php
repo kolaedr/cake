@@ -43,6 +43,15 @@ class AppServiceProvider extends ServiceProvider
                 // 'active' => ['pages', 'regex:@^content/[0-9]+$@']
             ]);
             $event->menu->add([
+                // 'key' => 'CakeFilling',
+                'text' => 'Order settings',
+                'url' => 'admin/order-default-settings',
+                // 'label' => Order::all()->count(),
+                'icon'    => 'fas fa-fw fa-th-order',
+                // 'active' => ['pages', 'regex:@^content/[0-9]+$@']
+            ]);
+            // $event->menu->add('');
+            $event->menu->add([
                 'key' => 'lang',
                 'text' => 'Lang',
                 'url' => 'admin/lang',

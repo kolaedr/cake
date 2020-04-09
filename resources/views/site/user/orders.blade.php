@@ -33,6 +33,9 @@
                                 @foreach ($item->cakes as $cake)
                                 <li>{{$cake->tierOne->name}}</li>
                                 @endforeach
+                                @foreach ($item->products as $prod)
+                                <li>{{$prod->name}}</li>
+                                @endforeach
                             </ol>
                         </td>
                         <td>{{$item->total_amount}}</td>

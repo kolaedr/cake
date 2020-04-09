@@ -20,7 +20,7 @@
                 <td><input type="number" value="{{$item['qty']}}" class="product_qty" data-id="{{$item['id']}}"></td>
                 <td>{{$item['price']*$item['qty']}}</td>
                 {{-- <td><a href="#" class="btn btn-outline-dark  single-delete pl-4 pr-4" data-id="">Del</a><i class="fa fa-plus" aria-hidden="true"></i></td> --}}
-                <td><button class="remove btn btn-link" data-id="{{$item['id']}}"><i class="fa fa-trash mr-2" aria-hidden="true"></i>Delete</button></td>
+                <td><button class="remove btn btn-link" data-id="{{$item['id']}}"><i class="fa fa-trash mr-2" aria-hidden="true"></i></button></td>
             </tr>
         @endforeach
     <tfoot>

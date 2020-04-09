@@ -56,6 +56,7 @@
     function fmSetLink($url) {
         document.getElementById('image_label').value = $url;
     }
+    $('#category_id').select2();
     </script>
 
     @stop

@@ -10,6 +10,7 @@ use App\Image;
 use App\Delivery;
 use Illuminate\Http\Request;
 use Cart;
+use Booking;
 use Session;
 
 class CakeController extends Controller
@@ -42,18 +43,19 @@ class CakeController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'cake_size_id' => 'required',
             'booking' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'text_decoration' => 'sometimes|nullable|max:1000|min:0',
             'comment' => 'sometimes|nullable|max:1000|min:0',
-            'name' => 'required|max:1000|min:0',
-            'phone' => 'required|max:19|min:10',
-            'delivery' => 'required',
-            'street' => 'sometimes|nullable|max:4|min:0',
-            'build' => 'sometimes|nullable|max:4|min:0',
-            'room' => 'sometimes|nullable|max:18|min:12',
+            // 'name' => 'required|max:1000|min:0',
+            // 'phone' => 'required|max:19|min:10',
+            // 'delivery' => 'required',
+            // 'street' => 'sometimes|nullable|max:4|min:0',
+            // 'build' => 'sometimes|nullable|max:4|min:0',
+            // 'room' => 'sometimes|nullable|max:18|min:12',
             'cake_filling_tier_1_id' => 'required|exists:cake_fillings,id',
             'cake_filling_tier_2_id' => 'sometimes|nullable|exists:cake_fillings,id',
             'cake_filling_tier_3_id' => 'sometimes|nullable|exists:cake_fillings,id',
@@ -62,30 +64,34 @@ class CakeController extends Controller
 
         ]);
 
-        $request->request->add(['user_id' => User::checkUser($request)]);
+        // $request->request->add(['user_id' => null]);
+        $request->request->add(['order_id' => null]);
+        if(empty(session('booking'))){
+            Session::put('booking', $request->booking);
+        }
 
-        $request->request->add(['status_id' => '1']);
+        // $request->request->add(['status_id' => '1']);
 
 
-        $reOrder = Order::where([
-            ['user_id', '=', $request->user_id],
-            ['status_id', '=', 1],
-            ['booking', '=', $request->booking]
-            ])->first();
+        // $reOrder = Order::where([
+        //     ['user_id', '=', $request->user_id],
+        //     ['status_id', '=', 1],
+        //     ['booking', '=', $request->booking]
+        //     ])->first();
 
-        if ($reOrder) {
-            $request->request->add(['order_id' => $reOrder->id]);
-            Session::put('order_id', $reOrder->id);
-            // Cart::addCustom(Cake::find($cake->id), $order->id);
-        }else{
-            // dd($request->all());
-            $order = Order::create($request->all());
-            $request->request->add(['order_id' => $order->id]);
+        // if ($reOrder) {
+        //     $request->request->add(['order_id' => $reOrder->id]);
+        //     Session::put('order_id', $reOrder->id);
+        //     // Cart::addCustom(Cake::find($cake->id), $order->id);
+        // }else{
+        //     // dd($request->all());
+        //     $order = Order::create($request->all());
+        //     $request->request->add(['order_id' => $order->id]);
 
-            Session::put('order_id', $order->id);
-            // dd($order->id);
+        //     Session::put('order_id', $order->id);
+        //     // dd($order->id);
 
-        };
+        // };
 
         if ($request->cake_filling_tier_2_id == 0) {
             $request->request->add(['cake_filling_tier_2_id' => $request->cake_filling_tier_1_id]);
@@ -109,21 +115,29 @@ class CakeController extends Controller
                 $insert[]=$im->id;
             }
             $cake->images()->sync($insert);
-        }
+        };
+
+        
 
         $cakeCost = $this->totalAmount($cake->id);
-        Order::find($request->order_id)->update(['total_amount' => $cakeCost]);
+
+        // Order::find($request->order_id)->update(['total_amount' => $cakeCost]);
         $cake->price = $cakeCost;
         $cake->save();
 
-        if ($reOrder) {
-            $reOrder->increment('total_amount', $cakeCost);
-        };
+        // if ($reOrder) {
+        //     $reOrder->increment('total_amount', $cakeCost);
+        // };
 
-        Cart::addCustom(Cake::find($cake->id), $reOrder?$reOrder->id:$order->id);
-
-        return back();
-        // return redirect('/user/orders');
+        Cart::addCustom(Cake::find($cake->id), 'cake', $request->booking);
+        $countCake = [];
+            foreach(session('cart') as $item ){
+                $countCake[] = $item;
+            }
+        return $countCake;
+        // return back();
+        // return view('site.order.cake');
+        // return redirect('/checkout');
     }
 
     public function totalAmount($id)
@@ -142,6 +156,96 @@ class CakeController extends Controller
         return $total;
 
     }
+
+
+    // public function store(Request $request)
+    // {
+    //     $request->validate([
+    //         'cake_size_id' => 'required',
+    //         'booking' => 'required',
+    //         'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    //         'text_decoration' => 'sometimes|nullable|max:1000|min:0',
+    //         'comment' => 'sometimes|nullable|max:1000|min:0',
+    //         'name' => 'required|max:1000|min:0',
+    //         'phone' => 'required|max:19|min:10',
+    //         'delivery' => 'required',
+    //         'street' => 'sometimes|nullable|max:4|min:0',
+    //         'build' => 'sometimes|nullable|max:4|min:0',
+    //         'room' => 'sometimes|nullable|max:18|min:12',
+    //         'cake_filling_tier_1_id' => 'required|exists:cake_fillings,id',
+    //         'cake_filling_tier_2_id' => 'sometimes|nullable|exists:cake_fillings,id',
+    //         'cake_filling_tier_3_id' => 'sometimes|nullable|exists:cake_fillings,id',
+    //         'cake_top_decoration_id' => 'required|exists:cake_top_decorations,id',
+    //         'cake_side_decoration_id' => 'exists:cake_side_decorations,id',
+
+    //     ]);
+
+    //     $request->request->add(['user_id' => User::checkUser($request)]);
+
+    //     $request->request->add(['status_id' => '1']);
+
+
+    //     $reOrder = Order::where([
+    //         ['user_id', '=', $request->user_id],
+    //         ['status_id', '=', 1],
+    //         ['booking', '=', $request->booking]
+    //         ])->first();
+
+    //     if ($reOrder) {
+    //         $request->request->add(['order_id' => $reOrder->id]);
+    //         Session::put('order_id', $reOrder->id);
+    //         // Cart::addCustom(Cake::find($cake->id), $order->id);
+    //     }else{
+    //         // dd($request->all());
+    //         $order = Order::create($request->all());
+    //         $request->request->add(['order_id' => $order->id]);
+
+    //         Session::put('order_id', $order->id);
+    //         // dd($order->id);
+
+    //     };
+
+    //     if ($request->cake_filling_tier_2_id == 0) {
+    //         $request->request->add(['cake_filling_tier_2_id' => $request->cake_filling_tier_1_id]);
+    //     }
+    //     if ($request->cake_filling_tier_3_id == 0) {
+    //         $request->request->add(['cake_filling_tier_3_id' => $request->cake_filling_tier_1_id]);
+    //     }
+
+    //     $cake = Cake::create($request->all());
+    //     $cake->AdditionalDecorations()->sync($request->additional_decorations_id);
+    //     $cake->AdditionalFillers()->sync($request->additional_filler_id);
+
+    //     if($request->file('image')){
+    //         $images = array();
+    //         $insert = array();
+    //         foreach($request->file('image') as $img){
+    //             $name='user_'.$img->getClientOriginalName();
+    //             $img->move('images/users',$name);
+    //             $name = '/images/users/'.$name;
+    //             $im = Image::create(['url' => $name, 'alt' => 1]);
+    //             $insert[]=$im->id;
+    //         }
+    //         $cake->images()->sync($insert);
+    //     }
+
+    //     $cakeCost = $this->totalAmount($cake->id);
+    //     Order::find($request->order_id)->update(['total_amount' => $cakeCost]);
+    //     $cake->price = $cakeCost;
+    //     $cake->save();
+
+    //     if ($reOrder) {
+    //         $reOrder->increment('total_amount', $cakeCost);
+    //     };
+
+    //     Cart::addCustom(Cake::find($cake->id), $reOrder?$reOrder->id:$order->id);
+
+    //     return back();
+    //     // return redirect('/user/orders');
+    // }
+
+
+
 
     /**
      * Display the specified resource.

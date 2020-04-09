@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;;
 
 use Illuminate\Http\Request;
 use Cart;
 use App\Product;
 use App\Cake;
+use App\Http\Controllers\Controller;
+use Session;
 
 class CartController extends Controller
 {
@@ -33,6 +35,7 @@ class CartController extends Controller
     {
         // $cart = new Cart();
         Cart::clear();
+        Session::forget('booking');
         return view('site.cart.cart');
     }
 
@@ -59,4 +62,6 @@ class CartController extends Controller
     {
         return view('site.cart.checkout');
     }
+
+
 }
